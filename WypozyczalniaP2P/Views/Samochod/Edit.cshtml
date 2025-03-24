@@ -1,0 +1,100 @@
+﻿@model WypozyczalniaP2P.Models.Samochod
+
+<h2>Edytuj samochód</h2>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="Id" />
+    <div class="form-group">
+        <label asp-for="Marka" class="control-label"></label>
+        <input asp-for="Marka" class="form-control" />
+        <span asp-validation-for="Marka" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Model" class="control-label"></label>
+        <input asp-for="Model" class="form-control" />
+        <span asp-validation-for="Model" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="TypSamochoduId" class="control-label">Typ Samochodu</label>
+        <select asp-for="TypSamochoduId" class="form-control" asp-items="ViewBag.TypSamochoduId"></select>
+        <span asp-validation-for="TypSamochoduId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="NumerRejestracyjny" class="control-label"></label>
+        <input asp-for="NumerRejestracyjny" class="form-control" />
+        <span asp-validation-for="NumerRejestracyjny" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="RokProdukcji" class="control-label"></label>
+        <input asp-for="RokProdukcji" class="form-control" />
+        <span asp-validation-for="RokProdukcji" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Przebieg" class="control-label"></label>
+        <input asp-for="Przebieg" class="form-control" />
+        <span asp-validation-for="Przebieg" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="MocSilnika" class="control-label"></label>
+        <input asp-for="MocSilnika" class="form-control" />
+        <span asp-validation-for="MocSilnika" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="PojemnoscSilnika" class="control-label"></label>
+        <input asp-for="PojemnoscSilnika" class="form-control" />
+        <span asp-validation-for="PojemnoscSilnika" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="RodzajPaliwa" class="control-label"></label>
+        <select asp-for="RodzajPaliwa" class="form-control" asp-items="Html.GetEnumSelectList<Samochod.Paliwo>()"></select>
+        <span asp-validation-for="RodzajPaliwa" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Skrzynia" class="control-label"></label>
+        <select asp-for="Skrzynia" class="form-control" asp-items="Html.GetEnumSelectList<Samochod.SkrzyniaBiegow>()"></select>
+        <span asp-validation-for="Skrzynia" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="LiczbaMiejsc" class="control-label"></label>
+        <select asp-for="LiczbaMiejsc" class="form-control" asp-items="Html.GetEnumSelectList<Samochod.IloscMiejsc>()"></select>
+        <span asp-validation-for="LiczbaMiejsc" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="IloscDrzwi" class="control-label"></label>
+        <select asp-for="IloscDrzwi" class="form-control" asp-items="Html.GetEnumSelectList<Samochod.Drzwi>()"></select>
+        <span asp-validation-for="IloscDrzwi" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="RodzajNapedu" class="control-label"></label>
+        <select asp-for="RodzajNapedu" class="form-control" asp-items="Html.GetEnumSelectList<Samochod.Naped>()"></select>
+        <span asp-validation-for="RodzajNapedu" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Vin" class="control-label"></label>
+        <input asp-for="Vin" class="form-control" />
+        <span asp-validation-for="Vin" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Kolor" class="control-label"></label>
+        <select asp-for="Kolor" class="form-control" asp-items="Html.GetEnumSelectList<Samochod.Kolory>()"></select>
+        <span asp-validation-for="Kolor" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="WlascicielId" class="control-label">Właściciel</label>
+        <select asp-for="WlascicielId" class="form-control" asp-items="ViewBag.WlascicielId"></select>
+        <span asp-validation-for="WlascicielId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="CzyDostepny" class="control-label"></label>
+        <input asp-for="CzyDostepny" type="checkbox" class="form-check-input" />
+        <span asp-validation-for="CzyDostepny" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Zapisz</button>
+        <a asp-action="Index" class="btn btn-secondary">Wróć</a>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

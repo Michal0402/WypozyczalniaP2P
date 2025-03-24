@@ -1,0 +1,23 @@
+﻿@model WypozyczalniaP2P.Models.Samochod
+
+<h2>Usuń samochód</h2>
+
+<h3>Czy na pewno chcesz usunąć ten samochód?</h3>
+<div>
+    <dl class="row">
+        <dt class="col-sm-3">Marka</dt>
+        <dd class="col-sm-9">@Model.Marka</dd>
+        <dt class="col-sm-3">Model</dt>
+        <dd class="col-sm-9">@Model.Model</dd>
+        <dt class="col-sm-3">Numer Rejestracyjny</dt>
+        <dd class="col-sm-9">@Model.NumerRejestracyjny</dd>
+        <dt class="col-sm-3">Właściciel</dt>
+        <dd class="col-sm-9">@Model.Wlasciciel?.Email</dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <button type="submit" class="btn btn-danger">Usuń</button>
+        <a asp-action="Index" class="btn btn-secondary">Anuluj</a>
+    </form>
+</div>

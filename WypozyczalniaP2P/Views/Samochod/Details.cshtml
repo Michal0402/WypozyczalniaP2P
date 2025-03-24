@@ -1,0 +1,46 @@
+﻿@model WypozyczalniaP2P.Models.Samochod
+
+<h2>Szczegóły samochodu</h2>
+
+<div class="card">
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-3">Marka</dt>
+            <dd class="col-sm-9">@Model.Marka</dd>
+            <dt class="col-sm-3">Model</dt>
+            <dd class="col-sm-9">@Model.Model</dd>
+            <dt class="col-sm-3">Typ</dt>
+            <dd class="col-sm-9">@Model.TypSamochodu?.Nazwa</dd>
+            <dt class="col-sm-3">Numer Rejestracyjny</dt>
+            <dd class="col-sm-9">@Model.NumerRejestracyjny</dd>
+            <dt class="col-sm-3">Rok Produkcji</dt>
+            <dd class="col-sm-9">@Model.RokProdukcji</dd>
+            <dt class="col-sm-3">Przebieg</dt>
+            <dd class="col-sm-9">@Model.Przebieg km</dd>
+            <dt class="col-sm-3">Moc Silnika</dt>
+            <dd class="col-sm-9">@Model.MocSilnika KM</dd>
+            <dt class="col-sm-3">Pojemność Silnika</dt>
+            <dd class="col-sm-9">@Model.PojemnoscSilnika L</dd>
+            <dt class="col-sm-3">Rodzaj Paliwa</dt>
+            <dd class="col-sm-9">@Model.RodzajPaliwa</dd>
+            <dt class="col-sm-3">Skrzynia Biegów</dt>
+            <dd class="col-sm-9">@Model.Skrzynia</dd>
+            <dt class="col-sm-3">Liczba Miejsc</dt>
+            <dd class="col-sm-9">@Model.LiczbaMiejsc</dd>
+            <dt class="col-sm-3">Ilość Drzwi</dt>
+            <dd class="col-sm-9">@Model.IloscDrzwi</dd>
+            <dt class="col-sm-3">Rodzaj Napędu</dt>
+            <dd class="col-sm-9">@Model.RodzajNapedu</dd>
+            <dt class="col-sm-3">VIN</dt>
+            <dd class="col-sm-9">@Model.Vin</dd>
+            <dt class="col-sm-3">Kolor</dt>
+            <dd class="col-sm-9">@Model.Kolor</dd>
+            <dt class="col-sm-3">Czy Dostępny</dt>
+            <dd class="col-sm-9">@(Model.CzyDostepny ? "Tak" : "Nie")</dd>
+            <dt class="col-sm-3">Właściciel</dt>
+            <dd class="col-sm-9">@Model.Wlasciciel?.Email</dd>
+        </dl>
+    </div>
+</div>
+
+<a asp-action="Index" class="btn btn-secondary mt-3">Wróć do listy</a>

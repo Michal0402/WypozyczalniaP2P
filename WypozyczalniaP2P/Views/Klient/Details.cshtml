@@ -1,0 +1,28 @@
+﻿@model WypozyczalniaP2P.Models.Klient
+
+<h2>Szczegóły klienta</h2>
+
+<div class="card">
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-3">Imię</dt>
+            <dd class="col-sm-9">@Model.Imie</dd>
+            <dt class="col-sm-3">Nazwisko</dt>
+            <dd class="col-sm-9">@Model.Nazwisko</dd>
+            <dt class="col-sm-3">Email</dt>
+            <dd class="col-sm-9">@Model.Email</dd>
+            <dt class="col-sm-3">Numer Prawa Jazdy</dt>
+            <dd class="col-sm-9">@Model.NumerPrawaJazdy</dd>
+            <dt class="col-sm-3">Adres</dt>
+            <dd class="col-sm-9">@Model.Adres</dd>
+            <dt class="col-sm-3">Miejscowość</dt>
+            <dd class="col-sm-9">@Model.Miejscowosc</dd>
+            <dt class="col-sm-3">Kod Pocztowy</dt>
+            <dd class="col-sm-9">@Model.KodPocztowy</dd>
+            <dt class="col-sm-3">Data Urodzenia</dt>
+            <dd class="col-sm-9">@Model.DataUrodzenia.ToString("dd-MM-yyyy")</dd>
+        </dl>
+    </div>
+</div>
+
+<a asp-action="Index" class="btn btn-secondary mt-3">Wróć do listy</a>

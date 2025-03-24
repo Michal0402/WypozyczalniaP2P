@@ -1,0 +1,41 @@
+﻿@model IEnumerable<WypozyczalniaP2P.Models.Samochod>
+
+<h2>Lista samochodów</h2>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Dodaj nowy samochód</a>
+</p>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Marka</th>
+            <th>Model</th>
+            <th>Typ</th>
+            <th>Numer Rejestracyjny</th>
+            <th>Rok Produkcji</th>
+            <th>Czy Dostępny</th>
+            <th>Właściciel</th>
+            <th>Akcje</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Marka</td>
+                <td>@item.Model</td>
+                <td>@item.TypSamochodu?.Nazwa</td>
+                <td>@item.NumerRejestracyjny</td>
+                <td>@item.RokProdukcji</td>
+                <td>@(item.CzyDostepny ? "Tak" : "Nie")</td>
+                <td>@item.Wlasciciel?.Email</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.Id">Szczegóły</a> |
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edytuj</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Usuń</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

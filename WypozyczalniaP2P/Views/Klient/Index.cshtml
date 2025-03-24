@@ -1,0 +1,37 @@
+﻿@model IEnumerable<WypozyczalniaP2P.Models.Klient>
+
+<h2>Lista klientów</h2>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Dodaj nowego klienta</a>
+</p>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Imię</th>
+            <th>Nazwisko</th>
+            <th>Email</th>
+            <th>Numer Prawa Jazdy</th>
+            <th>Data Urodzenia</th>
+            <th>Akcje</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Imie</td>
+                <td>@item.Nazwisko</td>
+                <td>@item.Email</td>
+                <td>@item.NumerPrawaJazdy</td>
+                <td>@item.DataUrodzenia.ToString("dd-MM-yyyy")</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.Id">Szczegóły</a> |
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edytuj</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Usuń</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
