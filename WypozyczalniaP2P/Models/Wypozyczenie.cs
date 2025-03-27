@@ -9,15 +9,15 @@ namespace WypozyczalniaP2P.Models
 
         [Required(ErrorMessage = "Klient jest wymagany")]
         public string KlientId { get; set; }
-        public virtual Klient Klient { get; set; }
+        public virtual Klient? Klient { get; set; }
 
         [Required(ErrorMessage = "Samochód jest wymagany")]
         public int SamochodId { get; set; }
-        public virtual Samochod Samochod { get; set; }
+        public virtual Samochod? Samochod { get; set; }
 
         [Required(ErrorMessage = "Wypożyczający jest wymagany")]
         public string WypozyczajacyId { get; set; }
-        public virtual Klient Wypozyczajacy { get; set; }
+        public virtual Klient? Wypozyczajacy { get; set; }
 
         [Required(ErrorMessage = "Data rozpoczęcia jest wymagana")]
         [DataType(DataType.Date)]

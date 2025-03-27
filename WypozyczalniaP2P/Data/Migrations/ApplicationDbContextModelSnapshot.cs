@@ -416,9 +416,80 @@ namespace WypozyczalniaP2P.Data.Migrations
 
                     b.HasIndex("TypSamochoduId");
 
+                    b.HasIndex("Vin")
+                        .IsUnique();
+
                     b.HasIndex("WlascicielId");
 
                     b.ToTable("Samochody");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CzyDostepny = true,
+                            IloscDrzwi = 1,
+                            Kolor = 1,
+                            LiczbaMiejsc = 2,
+                            Marka = "Toyota",
+                            MocSilnika = 132,
+                            Model = "Corolla",
+                            NumerRejestracyjny = "WWA1234",
+                            PojemnoscSilnika = 2f,
+                            Przebieg = 45000,
+                            RodzajNapedu = 0,
+                            RodzajPaliwa = 0,
+                            RokProdukcji = 2019,
+                            Skrzynia = 1,
+                            TypSamochoduId = 1,
+                            Vin = "JTDBR32E042013579",
+                            WlascicielId = "85b4c380-cb76-41ff-9387-eed59e4040a2",
+                            Zdjecie = "default.jpg"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CzyDostepny = true,
+                            IloscDrzwi = 2,
+                            Kolor = 7,
+                            LiczbaMiejsc = 2,
+                            Marka = "Volkswagen",
+                            MocSilnika = 150,
+                            Model = "Tiguan",
+                            NumerRejestracyjny = "WRO5678",
+                            PojemnoscSilnika = 3f,
+                            Przebieg = 30000,
+                            RodzajNapedu = 2,
+                            RodzajPaliwa = 1,
+                            RokProdukcji = 2020,
+                            Skrzynia = 0,
+                            TypSamochoduId = 2,
+                            Vin = "WVGZZZ5NZLW123456",
+                            WlascicielId = "85b4c380-cb76-41ff-9387-eed59e4040a2",
+                            Zdjecie = "default.jpg"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CzyDostepny = true,
+                            IloscDrzwi = 2,
+                            Kolor = 2,
+                            LiczbaMiejsc = 2,
+                            Marka = "Ford",
+                            MocSilnika = 100,
+                            Model = "Fiesta",
+                            NumerRejestracyjny = "KRA9012",
+                            PojemnoscSilnika = 1f,
+                            Przebieg = 60000,
+                            RodzajNapedu = 0,
+                            RodzajPaliwa = 0,
+                            RokProdukcji = 2018,
+                            Skrzynia = 0,
+                            TypSamochoduId = 3,
+                            Vin = "WF0DXXGAJD1234567",
+                            WlascicielId = "85b4c380-cb76-41ff-9387-eed59e4040a2",
+                            Zdjecie = "default.jpg"
+                        });
                 });
 
             modelBuilder.Entity("WypozyczalniaP2P.Models.TypSamochodu", b =>
@@ -442,6 +513,32 @@ namespace WypozyczalniaP2P.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("TypySamochodow");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Nazwa = "Sedan",
+                            Opis = "Rodzinna limuzyna"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Nazwa = "SUV",
+                            Opis = "Duże auto"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Nazwa = "Hatchback",
+                            Opis = "Miejskie auto"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Nazwa = "Combi",
+                            Opis = "Długie auto"
+                        });
                 });
 
             modelBuilder.Entity("WypozyczalniaP2P.Models.Wynajem", b =>
@@ -650,13 +747,13 @@ namespace WypozyczalniaP2P.Data.Migrations
                     b.HasOne("WypozyczalniaP2P.Models.Klient", "Klient")
                         .WithMany("Ogloszenia")
                         .HasForeignKey("KlientId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
 
                     b.HasOne("WypozyczalniaP2P.Models.Samochod", "Samochod")
                         .WithMany("Ogloszenia")
                         .HasForeignKey("SamochodId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
 
                     b.Navigation("Klient");
@@ -669,13 +766,13 @@ namespace WypozyczalniaP2P.Data.Migrations
                     b.HasOne("WypozyczalniaP2P.Models.Klient", "Autor")
                         .WithMany("MojeOpinieKlientow")
                         .HasForeignKey("AutorId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("WypozyczalniaP2P.Models.Klient", "Klient")
                         .WithMany("OpinieWypozyczen")
                         .HasForeignKey("KlientId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.ClientCascade);
 
                     b.Navigation("Autor");
 
@@ -693,7 +790,7 @@ namespace WypozyczalniaP2P.Data.Migrations
                     b.HasOne("WypozyczalniaP2P.Models.Samochod", "Samochod")
                         .WithMany("Opinie")
                         .HasForeignKey("SamochodId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
 
                     b.Navigation("Autor");
@@ -706,13 +803,13 @@ namespace WypozyczalniaP2P.Data.Migrations
                     b.HasOne("WypozyczalniaP2P.Models.TypSamochodu", "TypSamochodu")
                         .WithMany("Samochody")
                         .HasForeignKey("TypSamochoduId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("WypozyczalniaP2P.Models.Klient", "Wlasciciel")
                         .WithMany("Flota")
                         .HasForeignKey("WlascicielId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("TypSamochodu");
@@ -725,13 +822,13 @@ namespace WypozyczalniaP2P.Data.Migrations
                     b.HasOne("WypozyczalniaP2P.Models.Klient", "Klient")
                         .WithMany("Wynajmy")
                         .HasForeignKey("KlientId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
 
                     b.HasOne("WypozyczalniaP2P.Models.Samochod", "Samochod")
                         .WithMany("Wynajmy")
                         .HasForeignKey("SamochodId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
 
                     b.Navigation("Klient");
@@ -744,19 +841,19 @@ namespace WypozyczalniaP2P.Data.Migrations
                     b.HasOne("WypozyczalniaP2P.Models.Klient", "Klient")
                         .WithMany("Wypozyczenia")
                         .HasForeignKey("KlientId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
 
                     b.HasOne("WypozyczalniaP2P.Models.Samochod", "Samochod")
                         .WithMany("Wypozyczenia")
                         .HasForeignKey("SamochodId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
 
                     b.HasOne("WypozyczalniaP2P.Models.Klient", "Wypozyczajacy")
                         .WithMany("Wypozyczone")
                         .HasForeignKey("WypozyczajacyId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
 
                     b.Navigation("Klient");

@@ -1,0 +1,29 @@
+﻿@model WypozyczalniaP2P.Models.Ogloszenie
+
+<h1>Usuń ogłoszenie</h1>
+
+<h3>Czy na pewno chcesz usunąć to ogłoszenie?</h3>
+<div>
+    <h4>Ogłoszenie</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">Tytuł</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Tytul)</dd>
+        <dt class="col-sm-2">Opis</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Opis)</dd>
+        <dt class="col-sm-2">Klient</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Klient.Email)</dd>
+        <dt class="col-sm-2">Cena za dzień</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.CenaZaDzien) PLN</dd>
+        <dt class="col-sm-2">Samochód</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Samochod.Marka) @Html.DisplayFor(model => model.Samochod.Model)</dd>
+        <dt class="col-sm-2">Data utworzenia</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.DataUtworzenia)</dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Usuń" class="btn btn-danger" /> |
+        <a asp-action="Index">Wróć do listy</a>
+    </form>
+</div>

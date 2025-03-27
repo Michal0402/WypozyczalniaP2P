@@ -12,7 +12,7 @@ using WypozyczalniaP2P.Data;
 namespace WypozyczalniaP2P.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250321182330_InitialCreate")]
+    [Migration("20250327211058_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -410,7 +410,6 @@ namespace WypozyczalniaP2P.Data.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Zdjecie")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -419,6 +418,9 @@ namespace WypozyczalniaP2P.Data.Migrations
                         .IsUnique();
 
                     b.HasIndex("TypSamochoduId");
+
+                    b.HasIndex("Vin")
+                        .IsUnique();
 
                     b.HasIndex("WlascicielId");
 
@@ -654,13 +656,13 @@ namespace WypozyczalniaP2P.Data.Migrations
                     b.HasOne("WypozyczalniaP2P.Models.Klient", "Klient")
                         .WithMany("Ogloszenia")
                         .HasForeignKey("KlientId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
 
                     b.HasOne("WypozyczalniaP2P.Models.Samochod", "Samochod")
                         .WithMany("Ogloszenia")
                         .HasForeignKey("SamochodId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
 
                     b.Navigation("Klient");
@@ -673,13 +675,13 @@ namespace WypozyczalniaP2P.Data.Migrations
                     b.HasOne("WypozyczalniaP2P.Models.Klient", "Autor")
                         .WithMany("MojeOpinieKlientow")
                         .HasForeignKey("AutorId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("WypozyczalniaP2P.Models.Klient", "Klient")
                         .WithMany("OpinieWypozyczen")
                         .HasForeignKey("KlientId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.ClientCascade);
 
                     b.Navigation("Autor");
 
@@ -697,7 +699,7 @@ namespace WypozyczalniaP2P.Data.Migrations
                     b.HasOne("WypozyczalniaP2P.Models.Samochod", "Samochod")
                         .WithMany("Opinie")
                         .HasForeignKey("SamochodId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
 
                     b.Navigation("Autor");
@@ -710,13 +712,13 @@ namespace WypozyczalniaP2P.Data.Migrations
                     b.HasOne("WypozyczalniaP2P.Models.TypSamochodu", "TypSamochodu")
                         .WithMany("Samochody")
                         .HasForeignKey("TypSamochoduId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("WypozyczalniaP2P.Models.Klient", "Wlasciciel")
                         .WithMany("Flota")
                         .HasForeignKey("WlascicielId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("TypSamochodu");
@@ -729,13 +731,13 @@ namespace WypozyczalniaP2P.Data.Migrations
                     b.HasOne("WypozyczalniaP2P.Models.Klient", "Klient")
                         .WithMany("Wynajmy")
                         .HasForeignKey("KlientId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
 
                     b.HasOne("WypozyczalniaP2P.Models.Samochod", "Samochod")
                         .WithMany("Wynajmy")
                         .HasForeignKey("SamochodId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
 
                     b.Navigation("Klient");
@@ -748,19 +750,19 @@ namespace WypozyczalniaP2P.Data.Migrations
                     b.HasOne("WypozyczalniaP2P.Models.Klient", "Klient")
                         .WithMany("Wypozyczenia")
                         .HasForeignKey("KlientId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
 
                     b.HasOne("WypozyczalniaP2P.Models.Samochod", "Samochod")
                         .WithMany("Wypozyczenia")
                         .HasForeignKey("SamochodId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
 
                     b.HasOne("WypozyczalniaP2P.Models.Klient", "Wypozyczajacy")
                         .WithMany("Wypozyczone")
                         .HasForeignKey("WypozyczajacyId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
 
                     b.Navigation("Klient");
