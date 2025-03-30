@@ -1,0 +1,45 @@
+﻿@model WypozyczalniaP2P.Models.OpiniaSamochodu
+
+<h1>Edytuj opinię</h1>
+
+<div asp-validation-summary="All" class="text-danger"></div>
+
+<form asp-action="Edit">
+    <input type="hidden" asp-for="Id" />
+    <div class="form-group">
+        <label asp-for="AutorId" class="control-label">Autor</label>
+        <select asp-for="AutorId" class="form-control" asp-items="ViewBag.AutorId"></select>
+        <span asp-validation-for="AutorId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="SamochodId" class="control-label">Samochód</label>
+        <select asp-for="SamochodId" class="form-control" asp-items="ViewBag.SamochodId"></select>
+        <span asp-validation-for="SamochodId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Ocena" class="control-label"></label>
+        <input asp-for="Ocena" class="form-control" type="number" min="1" max="5" />
+        <span asp-validation-for="Ocena" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Komentarz" class="control-label"></label>
+        <textarea asp-for="Komentarz" class="form-control"></textarea>
+        <span asp-validation-for="Komentarz" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="DataDodania" class="control-label"></label>
+        <input asp-for="DataDodania" class="form-control" type="datetime-local" />
+        <span asp-validation-for="DataDodania" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Zapisz" class="btn btn-primary" />
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">Wróć do listy</a>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

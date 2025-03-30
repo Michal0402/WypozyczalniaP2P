@@ -70,6 +70,16 @@ namespace WypozyczalniaP2P.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Marka,Model,TypSamochoduId,NumerRejestracyjny,RokProdukcji,Przebieg,MocSilnika,PojemnoscSilnika,RodzajPaliwa,Skrzynia,LiczbaMiejsc,IloscDrzwi,RodzajNapedu,Vin,Kolor,WlascicielId,CzyDostepny")] Samochod samochod)
         {
+            if (await _context.Samochody.AnyAsync(s => s.NumerRejestracyjny == samochod.NumerRejestracyjny))
+            {
+                ModelState.AddModelError("NumerRejestracyjny", "Ten numer rejestracyjny jest już używany.");
+            }
+
+            if (await _context.Samochody.AnyAsync(s => s.Vin == samochod.Vin))
+            {
+                ModelState.AddModelError("Vin", "Ten numer VIN jest już używany.");
+            }
+
             if (ModelState.IsValid)
             {
                 _context.Add(samochod);
@@ -106,6 +116,18 @@ namespace WypozyczalniaP2P.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Marka,Model,TypSamochoduId,NumerRejestracyjny,RokProdukcji,Przebieg,MocSilnika,PojemnoscSilnika,RodzajPaliwa,Skrzynia,LiczbaMiejsc,IloscDrzwi,RodzajNapedu,Vin,Kolor,WlascicielId,CzyDostepny")] Samochod samochod)
         {
+            // Sprawdź unikalność NumerRejestracyjny, pomijając bieżący rekord
+            if (await _context.Samochody.AnyAsync(s => s.NumerRejestracyjny == samochod.NumerRejestracyjny && s.Id != samochod.Id))
+            {
+                ModelState.AddModelError("NumerRejestracyjny", "Ten numer rejestracyjny jest już używany.");
+            }
+
+            // Sprawdź unikalność Vin, pomijając bieżący rekord
+            if (await _context.Samochody.AnyAsync(s => s.Vin == samochod.Vin && s.Id != samochod.Id))
+            {
+                ModelState.AddModelError("Vin", "Ten numer VIN jest już używany.");
+            }
+
             if (id != samochod.Id)
             {
                 return NotFound();

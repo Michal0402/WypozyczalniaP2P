@@ -1,0 +1,37 @@
+﻿@model IEnumerable<WypozyczalniaP2P.Models.OpiniaKlienta>
+
+<h1>Opinie klientów</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Dodaj nową opinię</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Autor</th>
+            <th>Klient</th>
+            <th>Ocena</th>
+            <th>Komentarz</th>
+            <th>Data dodania</th>
+            <th>Akcje</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Autor.Email)</td>
+                <td>@Html.DisplayFor(modelItem => item.Klient.Email)</td>
+                <td>@Html.DisplayFor(modelItem => item.Ocena)</td>
+                <td>@Html.DisplayFor(modelItem => item.Komentarz)</td>
+                <td>@Html.DisplayFor(modelItem => item.DataDodania)</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edytuj</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Szczegóły</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Usuń</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

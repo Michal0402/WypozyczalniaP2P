@@ -1,0 +1,39 @@
+﻿@model IEnumerable<WypozyczalniaP2P.Models.Wynajem>
+
+<h1>Wynajmy</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Dodaj nowy wynajem</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Klient</th>
+            <th>Samochód</th>
+            <th>Data rozpoczęcia</th>
+            <th>Data zakończenia</th>
+            <th>Ilość dni</th>
+            <th>Całkowity koszt</th>
+            <th>Akcje</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Klient.Email)</td>
+                <td>@Html.DisplayFor(modelItem => item.Samochod.Marka) @Html.DisplayFor(modelItem => item.Samochod.Model)</td>
+                <td>@Html.DisplayFor(modelItem => item.DataRozpoczecia)</td>
+                <td>@Html.DisplayFor(modelItem => item.DataZakonczenia)</td>
+                <td>@Html.DisplayFor(modelItem => item.IloscDni)</td>
+                <td>@Html.DisplayFor(modelItem => item.CalkowityKosztWynajmu) PLN</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edytuj</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Szczegóły</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Usuń</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

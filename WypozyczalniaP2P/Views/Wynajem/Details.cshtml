@@ -1,0 +1,26 @@
+﻿@model WypozyczalniaP2P.Models.Wynajem
+
+<h1>Szczegóły wynajmu</h1>
+
+<div>
+    <h4>Wynajem</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">Klient</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Klient.Email)</dd>
+        <dt class="col-sm-2">Samochód</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Samochod.Marka) @Html.DisplayFor(model => model.Samochod.Model)</dd>
+        <dt class="col-sm-2">Data rozpoczęcia</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.DataRozpoczecia)</dd>
+        <dt class="col-sm-2">Data zakończenia</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.DataZakonczenia)</dd>
+        <dt class="col-sm-2">Ilość dni</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.IloscDni)</dd>
+        <dt class="col-sm-2">Całkowity koszt</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.CalkowityKosztWynajmu) PLN</dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edytuj</a> |
+    <a asp-action="Index">Wróć do listy</a>
+</div>
