@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using WypozyczalniaP2P.Data;
+using WypozyczalniaP2P.Services;
 
 namespace WypozyczalniaP2P;
 
@@ -21,8 +22,10 @@ public class Program
             .AddRoles<IdentityRole>()
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddEntityFrameworkStores<ApplicationDbContext>()
-            .AddDefaultTokenProviders(); 
-            
+            .AddDefaultTokenProviders();
+
+        builder.Services.AddScoped<CarAvailabilityService>();
+
         builder.Services.AddControllersWithViews();
 
 

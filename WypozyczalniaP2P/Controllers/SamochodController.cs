@@ -26,6 +26,15 @@ namespace WypozyczalniaP2P.Controllers
             _userManager = userManager;
         }
 
+        public async Task<IActionResult> DisplayCars()
+        {
+            var samochody = await _context.Samochody
+                .Include(s => s.TypSamochodu)
+                .Include(s => s.Wlasciciel)
+                .ToListAsync();
+            return View(samochody);
+        }
+
         // GET: Samochod/Index
         public async Task<IActionResult> Index()
         {

@@ -8,17 +8,90 @@ using System.Security.Cryptography;
 using System;
 using WypozyczalniaP2P.Data;
 using WypozyczalniaP2P.Models;
+using WypozyczalniaP2P.Services;
+
 namespace WypozyczalniaP2P.Controllers
 {
     public class WypozyczenieController : Controller
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<IdentityUser> _userManager;
+        private readonly CarAvailabilityService _availabilityService;
 
-        public WypozyczenieController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
+        public WypozyczenieController(ApplicationDbContext context, UserManager<IdentityUser> userManager, CarAvailabilityService availabilityService)
         {
             _context = context;
             _userManager = userManager;
+            _availabilityService = availabilityService;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetOccupiedDates(int carId)
+        {
+            var occupiedEvents = await _context.Wypozyczenia
+                .Where(r => r.SamochodId == carId)
+                .Select(r => new
+                {
+                    Start = r.DataRozpoczecia,
+                    End = r.DataZakonczenia
+                })
+                .ToListAsync();
+
+            var result = occupiedEvents.Select(e => new
+            {
+                start = e.Start.ToString("yyyy-MM-dd"),
+                end = e.End.HasValue ? e.End.Value.ToString("yyyy-MM-dd") : DateTime.MaxValue.ToString("yyyy-MM-dd")
+            });
+
+            return Json(result);
+        }
+
+        public async Task<IActionResult> WypozyczSamochod(int? id)
+        {
+            if (id == null) return NotFound();
+
+            var samochod = await _context.Samochody.FindAsync(id);
+            if (samochod == null) return NotFound();
+
+            var model = new Wypozyczenie
+            {
+                SamochodId = id.Value,
+                KlientId = _userManager.GetUserId(User), // ID zalogowanego klienta
+                WypozyczajacyId = samochod.WlascicielId, // ID właściciela samochodu
+                DataRozpoczecia = DateTime.Today
+            };
+
+            ViewBag.Samochod = samochod;
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> WypozyczSamochod([Bind("SamochodId,KlientId,WypozyczajacyId,DataRozpoczecia,DataZakonczenia")] Wypozyczenie wynajem)
+        {
+            var samochod = await _context.Samochody.FindAsync(wynajem.SamochodId);
+            if (samochod == null)
+            {
+                ModelState.AddModelError("", "Wybrany samochód nie jest dostępny.");
+            }
+
+            // Walidacja dostępności za pomocą CarAvailabilityService
+            if (!await _availabilityService.IsCarAvailable(wynajem.SamochodId, wynajem.DataRozpoczecia, wynajem.DataZakonczenia ?? DateTime.MaxValue))
+            {
+                ModelState.AddModelError("", "Samochód jest już zarezerwowany w wybranym okresie.");
+            }
+
+            if (ModelState.IsValid)
+            {
+                _context.Add(wynajem);
+                samochod.CzyDostepny = false;
+                _context.Update(samochod);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index", "Samochod");
+            }
+
+            ViewBag.Samochod = samochod;
+            return View(wynajem);
         }
 
         // GET: Wypozyczenie

@@ -1,0 +1,35 @@
+﻿@model IEnumerable<WypozyczalniaP2P.Models.Samochod>
+
+<h1>Wybierz samochód do wypożyczenia</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Marka</th>
+            <th>Model</th>
+            <th>Typ</th>
+            <th>Numer rejestracyjny</th>
+            <th>Rok produkcji</th>
+            <th>Akcja</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Marka)</td>
+                <td>@Html.DisplayFor(modelItem => item.Model)</td>
+                <td>@Html.DisplayFor(modelItem => item.TypSamochodu.Nazwa)</td>
+                <td>@Html.DisplayFor(modelItem => item.NumerRejestracyjny)</td>
+                <td>@Html.DisplayFor(modelItem => item.RokProdukcji)</td>
+                <td>
+                    <a asp-controller = "Wypozyczenie" asp-action="WypozyczSamochod" asp-route-id="@item.Id" class="btn btn-primary">Wypożycz</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div>
+    <a asp-action="Index" asp-controller="Home" class="btn btn-secondary">Wróć</a>
+</div>

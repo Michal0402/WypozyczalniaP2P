@@ -21,30 +21,11 @@ namespace WypozyczalniaP2P.Models
 
         [Required(ErrorMessage = "Data rozpoczęcia jest wymagana")]
         [DataType(DataType.Date)]
-        [CustomValidation(typeof(Wypozyczenie), nameof(ValidateDataRozpoczecia))]
         public DateTime DataRozpoczecia { get; set; }
 
         [DataType(DataType.Date)]
-        [CustomValidation(typeof(Wypozyczenie), nameof(ValidateDataZakonczenia))]
         public DateTime? DataZakonczenia { get; set; }
 
-        public static ValidationResult ValidateDataRozpoczecia(DateTime dataRozpoczecia, ValidationContext context)
-        {
-            if (dataRozpoczecia < DateTime.Today)
-            {
-                return new ValidationResult("Data rozpoczęcia nie może być wcześniejsza niż dzisiejsza data.");
-            }
-            return ValidationResult.Success;
-        }
-
-        public static ValidationResult ValidateDataZakonczenia(DateTime? dataZakonczenia, ValidationContext context)
-        {
-            var instance = (Wypozyczenie)context.ObjectInstance;
-            if (dataZakonczenia.HasValue && dataZakonczenia <= instance.DataRozpoczecia)
-            {
-                return new ValidationResult("Data zakończenia musi być późniejsza niż data rozpoczęcia.");
-            }
-            return ValidationResult.Success;
-        }
+       
     }
 }
