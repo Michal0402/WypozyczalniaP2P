@@ -41,8 +41,8 @@
     </div>
     <div class="form-group">
         <label asp-for="PojemnoscSilnika" class="control-label"></label>
-        <input asp-for="PojemnoscSilnika" class="form-control" />
-        <span asp-validation-for="PojemnoscSilnika" class="text-danger"></span>
+        <input asp-for="PojemnoscSilnika" class="form-control" step="0.01" type="number" />
+        <span asp-validation-for="PojemnoscSilnika" class="text-danger" ></span>
     </div>
     <div class="form-group">
         <label asp-for="RodzajPaliwa" class="control-label"></label>
@@ -83,11 +83,6 @@
         <label asp-for="WlascicielId" class="control-label">Właściciel</label>
         <select asp-for="WlascicielId" class="form-control" asp-items="ViewBag.WlascicielId"></select>
         <span asp-validation-for="WlascicielId" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="CzyDostepny" class="control-label"></label>
-        <input asp-for="CzyDostepny" type="checkbox" class="form-check-input" />
-        <span asp-validation-for="CzyDostepny" class="text-danger"></span>
     </div>
     <div class="form-group">
         <button type="submit" class="btn btn-primary">Zapisz</button>

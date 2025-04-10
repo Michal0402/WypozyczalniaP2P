@@ -63,8 +63,6 @@ namespace WypozyczalniaP2P.Models
 
         public string? Zdjecie { get; set; } = "default.jpg"; //defaultowe zdjecie samochodu
 
-        public bool CzyDostepny { get; set; } = true;
-
         public virtual ICollection<OpiniaSamochodu> Opinie { get; set; } = new List<OpiniaSamochodu>();
         public virtual ICollection<Ogloszenie> Ogloszenia { get; set; } = new List<Ogloszenie>();
 

@@ -22,18 +22,13 @@
     </div>
     <div class="form-group">
         <label asp-for="CenaZaDzien" class="control-label"></label>
-        <input asp-for="CenaZaDzien" class="form-control" />
+        <input asp-for="CenaZaDzien" class="form-control" step="0.01" type="number"/>
         <span asp-validation-for="CenaZaDzien" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="SamochodId" class="control-label">Samochód</label>
         <select asp-for="SamochodId" class="form-control" asp-items="ViewBag.SamochodId"></select>
         <span asp-validation-for="SamochodId" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="DataUtworzenia" class="control-label"></label>
-        <input asp-for="DataUtworzenia" class="form-control" />
-        <span asp-validation-for="DataUtworzenia" class="text-danger"></span>
     </div>
     <div class="form-group">
         <input type="submit" value="Zapisz" class="btn btn-primary" />

@@ -87,7 +87,6 @@ public class ApplicationDbContext : IdentityDbContext<IdentityUser>
                 Vin = "JTDBR32E042013579",
                 Kolor = Samochod.Kolory.Czarny,
                 WlascicielId = "85b4c380-cb76-41ff-9387-eed59e4040a2",
-                CzyDostepny = true,
                 Zdjecie = "default.jpg"
             },
                 new Samochod
@@ -109,7 +108,6 @@ public class ApplicationDbContext : IdentityDbContext<IdentityUser>
                     Vin = "WVGZZZ5NZLW123456",
                     Kolor = Samochod.Kolory.Srebrny,
                     WlascicielId = "85b4c380-cb76-41ff-9387-eed59e4040a2",
-                    CzyDostepny = true,
                     Zdjecie = "default.jpg"
                 },
                 new Samochod
@@ -131,7 +129,6 @@ public class ApplicationDbContext : IdentityDbContext<IdentityUser>
                     Vin = "WF0DXXGAJD1234567",
                     Kolor = Samochod.Kolory.Czerwony,
                     WlascicielId = "85b4c380-cb76-41ff-9387-eed59e4040a2",
-                    CzyDostepny = true,
                     Zdjecie = "default.jpg"
                 }
             );

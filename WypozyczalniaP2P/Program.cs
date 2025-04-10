@@ -26,6 +26,15 @@ public class Program
 
         builder.Services.AddScoped<CarAvailabilityService>();
 
+
+        var supportedCultures = new[] { "pl-PL", "en-US" };
+        var localizationOptions = new RequestLocalizationOptions()
+            .SetDefaultCulture("pl-PL") // Domyœlna kultura (polska)
+            .AddSupportedCultures(supportedCultures)
+            .AddSupportedUICultures(supportedCultures);
+
+        
+
         builder.Services.AddControllersWithViews();
 
 
@@ -48,6 +57,7 @@ public class Program
         app.UseRouting();
         app.UseAuthentication();
         app.UseAuthorization();
+        app.UseRequestLocalization(localizationOptions);
 
         app.UseAuthorization();
 

@@ -28,7 +28,6 @@
                 <td>@item.TypSamochodu?.Nazwa</td>
                 <td>@item.NumerRejestracyjny</td>
                 <td>@item.RokProdukcji</td>
-                <td>@(item.CzyDostepny ? "Tak" : "Nie")</td>
                 <td>@item.Wlasciciel?.Email</td>
                 <td>
                     <a asp-action="Details" asp-route-id="@item.Id">Szczegóły</a> |

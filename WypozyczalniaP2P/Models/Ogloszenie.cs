@@ -21,13 +21,15 @@ namespace WypozyczalniaP2P.Models
 
         [Required(ErrorMessage = "Cena za dzień jest wymagana")]
         [Range(0.01, double.MaxValue, ErrorMessage = "Cena za dzień musi być większa niż 0")]
+        [Display(Name = "Cena za dobę")]
         public decimal CenaZaDzien { get; set; }
 
         [Required]
         public int SamochodId { get; set; }
         public virtual Samochod? Samochod { get; set; }
 
-        [Required]
+        public string? Zdjecie { get; set; } = "default.jpg"; //defaultowe zdjecie samochodu
+
         public DateTime DataUtworzenia { get; set; }
     }
 }

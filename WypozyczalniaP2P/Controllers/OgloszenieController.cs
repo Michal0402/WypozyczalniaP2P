@@ -57,6 +57,8 @@ namespace WypozyczalniaP2P.Controllers
         {
             if (ModelState.IsValid)
             {
+                ogloszenie.DataUtworzenia = DateTime.Now;
+
                 _context.Add(ogloszenie);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

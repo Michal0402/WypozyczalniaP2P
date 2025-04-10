@@ -84,7 +84,6 @@ namespace WypozyczalniaP2P.Controllers
             if (ModelState.IsValid)
             {
                 _context.Add(wynajem);
-                samochod.CzyDostepny = false;
                 _context.Update(samochod);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index", "Samochod");
