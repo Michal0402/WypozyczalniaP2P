@@ -18,6 +18,21 @@ namespace WypozyczalniaP2P.Controllers
             _userManager = userManager;
         }
 
+        public async Task<IActionResult> SzczegolyOgloszenia(int id)
+        {
+            var ogloszenie = await _context.Ogłoszenia
+                .Include(o => o.Samochod)
+                .Include(o => o.Klient)
+                .FirstOrDefaultAsync(o => o.Id == id);
+
+            if (ogloszenie == null)
+            {
+                return NotFound();
+            }
+
+            return View(ogloszenie);
+        }
+
         // GET: Ogloszenie
         public async Task<IActionResult> Index()
         {

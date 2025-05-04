@@ -40,7 +40,7 @@ namespace WypozyczalniaP2P.Controllers
             var result = occupiedEvents.Select(e => new
             {
                 start = e.Start.ToString("yyyy-MM-dd"),
-                end = e.End.HasValue ? e.End.Value.ToString("yyyy-MM-dd") : DateTime.MaxValue.ToString("yyyy-MM-dd")
+                end = e.End.HasValue ? e.End.Value.AddDays(1).ToString("yyyy-MM-dd") : DateTime.MaxValue.ToString("yyyy-MM-dd")
             });
 
             return Json(result);

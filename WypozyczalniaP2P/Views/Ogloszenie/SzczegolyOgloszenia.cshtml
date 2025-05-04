@@ -1,0 +1,87 @@
+﻿@model WypozyczalniaP2P.Models.Ogloszenie
+
+@{
+    ViewData["Title"] = "Szczegóły Ogłoszenia";
+}
+
+<div class="container my-4">
+    <h1 class="mb-4">@Model.Tytul</h1>
+
+    <div class="row">
+        <!-- Zdjęcie samochodu -->
+        <div class="col-md-6">
+            <img src="@(string.IsNullOrEmpty(Model.Zdjecie) ? "/images/default.jpg" : $"/images/{Model.Zdjecie}")"
+                 alt="Zdjęcie samochodu"
+                 class="img-fluid rounded shadow"
+                 style="max-height: 400px; object-fit: cover;" />
+        </div>
+        <!-- Szczegóły ogłoszenia -->
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h4 class="card-title">@Model.Samochod?.Marka @Model.Samochod?.Model</h4>
+                    <p class="card-text">
+                        <strong>Opis:</strong> @Model.Opis
+                    </p>
+                    <p class="card-text">
+                        <strong>Cena za dobę:</strong> @Model.CenaZaDzien.ToString("C", new System.Globalization.CultureInfo("pl-PL"))
+                    </p>
+                    <p class="card-text">
+                        <strong>Właściciel:</strong> @Model.Klient?.Email
+                    </p>
+                    <p class="card-text">
+                        <strong>Data utworzenia:</strong> @Model.DataUtworzenia.ToString("dd.MM.yyyy")
+                    </p>
+                    <div class="mt-4">
+                        <a asp-action="WypozyczSamochod"
+                           asp-controller="Wypozyczenie"
+                           asp-route-id="@Model.SamochodId"
+                           class="btn btn-primary">Wypożycz</a>
+                        <a asp-action="Index"
+                           asp-controller="Ogloszenie"
+                           class="btn btn-secondary">Wróć do listy</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .card {
+        border: none;
+        background-color: #f9f9f9;
+    }
+
+    .card-title {
+        font-size: 1.5rem;
+        color: #333;
+    }
+
+    .card-text {
+        font-size: 1rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #004085;
+        }
+
+    .btn-secondary {
+        margin-left: 10px;
+    }
+
+    .img-fluid {
+        width: 100%;
+    }
+</style>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
