@@ -33,13 +33,11 @@
                         <strong>Data utworzenia:</strong> @Model.DataUtworzenia.ToString("dd.MM.yyyy")
                     </p>
                     <div class="mt-4">
-                        <a asp-action="WypozyczSamochod"
-                           asp-controller="Wypozyczenie"
-                           asp-route-id="@Model.SamochodId"
-                           class="btn btn-primary">Wypożycz</a>
-                        <a asp-action="Index"
-                           asp-controller="Ogloszenie"
-                           class="btn btn-secondary">Wróć do listy</a>
+                        <a asp-action="PrepareWypozyczSamochod" asp-controller="Wypozyczenie" 
+                        asp-route-samochodId="@Model.SamochodId" 
+                        asp-route-ogloszenieId="@Model.Id"
+                        class="btn btn-primary">Wypożycz</a>
+                        <a asp-action="Index" asp-controller="Ogloszenie" class="btn btn-secondary">Wróć do listy</a>
                     </div>
                 </div>
             </div>

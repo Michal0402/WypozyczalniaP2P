@@ -46,23 +46,51 @@ namespace WypozyczalniaP2P.Controllers
             return Json(result);
         }
 
-        public async Task<IActionResult> WypozyczSamochod(int? id)
+        public IActionResult PrepareWypozyczSamochod(int samochodId, int ogloszenieId)
         {
-            if (id == null) return NotFound();
+            var ogloszenie = _context.Ogłoszenia.FirstOrDefault(o => o.Id == ogloszenieId && o.SamochodId == samochodId);
+            if (ogloszenie == null)
+            {
+                return NotFound();
+            }
 
-            var samochod = await _context.Samochody.FindAsync(id);
+            TempData["SamochodId"] = samochodId;
+            TempData["OgloszenieId"] = ogloszenieId;
+            TempData["CenaZaDzien"] = ogloszenie.CenaZaDzien.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            return RedirectToAction("WypozyczSamochod");
+        }
+
+        public async Task<IActionResult> WypozyczSamochod()
+        {
+            if (!TempData.ContainsKey("SamochodId") || !TempData.ContainsKey("OgloszenieId"))
+            {
+                return NotFound();
+            }
+
+            int samochodId = (int)TempData["SamochodId"];
+            int ogloszenieId = (int)TempData["OgloszenieId"];
+            if (!decimal.TryParse(TempData["CenaZaDzien"]?.ToString(), System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out decimal cenaZaDzien))
+            {
+                return BadRequest("Nieprawidłowy format ceny za dzień.");
+            }
+
+            if (samochodId == null) return NotFound();
+
+            var samochod = await _context.Samochody.FindAsync(samochodId);
             if (samochod == null) return NotFound();
 
             var model = new Wypozyczenie
             {
-                SamochodId = id.Value,
+                SamochodId = samochodId,
                 KlientId = _userManager.GetUserId(User), // ID zalogowanego klienta
                 WypozyczajacyId = samochod.WlascicielId, // ID właściciela samochodu
                 DataRozpoczecia = DateTime.Today
             };
 
+            ViewBag.CenaZaDzien = cenaZaDzien;
+            ViewBag.OgloszenieId = ogloszenieId;
             ViewBag.Samochod = samochod;
-            return View(model);
+            return View(new Wypozyczenie { SamochodId = samochodId});
         }
 
         [HttpPost]

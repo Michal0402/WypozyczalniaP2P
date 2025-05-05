@@ -2,6 +2,8 @@
 
 @{
     var samochod = ViewBag.Samochod as WypozyczalniaP2P.Models.Samochod;
+    var ogloszenieId = ViewBag.OgloszenieId as int?;
+    var cenaZaDzien = ViewBag.CenaZaDzien as decimal?;
 }
 
 <h1>Wypożycz: @samochod.Marka @samochod.Model</h1>
@@ -28,6 +30,14 @@
         <input class="form-control" value="@samochod.Wlasciciel?.Email" readonly />
     </div>
     <div class="form-group">
+        <label class="control-label">Cena za dobę</label>
+        <input class="form-control" value="@cenaZaDzien?.ToString("C", new System.Globalization.CultureInfo("pl-PL"))" readonly />
+    </div>
+    <div class="form-group">
+        <label class="control-label">Całkowita cena</label>
+        <input class="form-control" id="TotalPriceDisplay" readonly />
+    </div>
+    <div class="form-group">
         <label asp-for="DataRozpoczecia" class="control-label">Od</label>
         <input asp-for="DataRozpoczecia" id="DataRozpoczecia" class="form-control" type="date" required />
         <span asp-validation-for="DataRozpoczecia" class="text-danger"></span>
@@ -39,7 +49,7 @@
     </div>
     <div class="form-group">
         <input type="submit" value="Wypożycz" class="btn btn-primary" />
-        <a asp-action="WybierzSamochod" asp-controller="Wypozyczenie" class="btn btn-secondary">Wróć</a>
+        <a asp-action="SzczegolyOgloszenia" asp-controller="Ogloszenie" asp-route-id="@ogloszenieId" class="btn btn-secondary">Wróć</a>
     </div>
 </form>
 
@@ -89,6 +99,7 @@
         document.addEventListener('DOMContentLoaded', function () {
             var carId = @Model.SamochodId;
             var calendarEl = document.getElementById('calendar');
+            
 
             if (!calendarEl) {
                 console.error('Element kalendarza nie został znaleziony!');
@@ -104,8 +115,6 @@
                     return response.json();
                 })
                 .then(data => {
-                    // Debug: Wypisz pobrane daty w konsoli
-                    console.log('Pobrane zajęte terminy:', data);
 
                     calendar = new FullCalendar.Calendar(calendarEl, {
                         initialView: 'dayGridMonth',
